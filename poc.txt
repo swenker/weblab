@@ -1,0 +1,1 @@
+insert into   xnote_xnote(title, content, create_time) values('国庆大阅兵', '天安门广场', now())
