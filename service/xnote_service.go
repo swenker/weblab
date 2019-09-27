@@ -9,6 +9,8 @@ func GetNoteByID(id int) model.XNote {
 	return repository.GetByID(id)
 }
 
+// QueryNotesByTitle query title by given keywords
+// TODO pagination
 func QueryNotesByTitle(keywords string) []model.XNote {
 	return repository.QueryByTitle(keywords)
 }

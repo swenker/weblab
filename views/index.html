@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>XNote </title>
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/react-router-dom@5/umd/react-router-dom.js"></script>
+
+  <!-- Don't use this in production: -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+
+  <h2>Add React in One Minute</h2>
+  <div id="root"></div>
+
+  <script type="text/babel">
+
+
+    class App extends React.Component {
+   constructor() {
+      super();
+      this.state = {
+         data: 
+         [
+            {
+               "id":1,
+               "name":"Foo",
+               "age":"20"
+            },
+            {
+               "id":2,
+               "name":"Bar",
+               "age":"30"
+            },
+            {
+               "id":3,
+               "name":"Baz",
+               "age":"40"
+            }
+         ]
+      }
+   }
+
+   render() {
+      return (
+         <div>
+            <Header/>
+            <table>
+               <tbody>
+                  {  this.state.data.map((person, i) => <TableRow key = {i} data = {person} />)
+                    }
+               </tbody>
+            </table>
+         </div>
+      );
+   }
+
+}
+class Header extends React.Component {
+   render() {
+      return (
+         <div>
+            <h1>Header</h1>
+         </div>
+      );
+   }
+}
+class TableRow extends React.Component {
+   render() {
+      return (
+         <tr>
+            <td>{this.props.data.id}</td>
+            <td>{this.props.data.name}</td>
+            <td>{this.props.data.age}</td>
+         </tr>
+      );
+   }
+}
+    class LoginForm extends React.Component {
+        render() {        
+          return (
+            <p>  hello world</p>
+          );
+        }
+    }
+
+    class NoteForm extends React.Component{
+
+      render(){
+        return (
+        <div id="id_div_note">
+          <div id="notification" ></div>
+          <form action="/xnote/api/save" method="post" id="note_form" onSubmit="return save_note()">
+            <input type='hidden' name='csrfmiddlewaretoken' value='' />
+            <input type="hidden" id="id_note_id" name="note_id" value=""/>
+            <div >
+              <input name="title" id="id_title" size="20" maxLength="50" /><button type="submit"
+                id="id_btn_save_top">Save</button>
+            </div>
+            <div  >
+              <textarea name="content" id="id_content" cols="35" rows="10"></textarea>
+            </div>
+            <div ><button type="submit" id="id_btn_save">Save</button>&nbsp;<button type="reset"
+                id="id_btn_reset">Clear</button>
+              &nbsp;&nbsp; <a href="/xnote/add">New</a> &nbsp;&nbsp; <a href="/xnote/list">List</a>
+            </div>
+          </form>
+        </div>
+        )
+      }
+    }
+
+    class NoteList extends React.Component{
+
+      render(){
+        return(
+        <div>
+          <div id="list_header" >[<span id="total_counter"></span>]共
+            <span id="total_pages"></span>页&nbsp;&nbsp;
+            <span><a href="add">New</a></span>
+            <span id="prev">&lt; &nbsp;&nbsp;</span>
+            <span id="next"><a href="/xnote/list?k=&amp;np=2"> &gt; </a></span>
+          </div>
+          <div id="notes_list">
+            <div>
+              <div>发票&nbsp;<span >[2019-09-20T09:43:12Z]</span></div>
+              <div>北京拜腾汽车销售服务有限公司    91110105MA01HDKR45</div>
+              <div><span>[<a href="/xnote/edit/113">Edit</a>]</span>&nbsp;&nbsp;<span>[<a  href="/xnote/api/rm/113">Delete</a>]</span></div>
+            </div>
+          </div>
+
+          <div id="list_footer" >
+            <span><a href="add">New</a></span>
+            <span id="prev">&lt; &nbsp;&nbsp;</span>
+            <span id="next"><a href="/xnote/list?k=&amp;np=2"> &gt; </a></span>
+          </div>
+
+        </div>
+        )
+      }
+    }
+
+    ReactDOM.render(
+      (
+        <Router history={browserHistory}>
+          <Route path="view" component={NoteForm} />
+          <Route path="list" component={NoteList} />
+        </Router>
+      ),
+        // <LoginForm />,
+        // <NoteForm />,
+        // <NoteList />,
+        // <App/>,
+        document.getElementById('root')
+      );
+
+    </script>
+
+  <!--
+      Note: this page is a great way to try React but it's not suitable for production.
+      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+      Read this section for a production-ready setup with JSX:
+      https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project
+
+      In a larger project, you can use an integrated toolchain that includes JSX instead:
+      https://reactjs.org/docs/create-a-new-react-app.html
+
+      You can also use React without JSX, in which case you can remove Babel:
+      https://reactjs.org/docs/react-without-jsx.html
+    -->
+</body>
+
+</html>
